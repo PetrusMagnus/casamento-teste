@@ -4,19 +4,394 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juciane & Elias - Nosso Casamento</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* [Todo o CSS anterior permanece igual] */
-        /* ... */
+        :root {
+            --gold: #d4af37;
+            --ivory: #f9f6f0;
+            --dark: #333333;
+            --light: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--ivory);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--light);
+            position: relative;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+        
+        .date {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+        }
+        
+        .couple-names {
+            font-size: 2rem;
+            font-weight: 300;
+        }
+        
+        nav {
+            background-color: var(--dark);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--gold);
+        }
+        
+        .couple-photo {
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .couple-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: var(--gold);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-end;
+            padding-right: 30px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-left: 30px;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            padding: 1.5rem;
+            background-color: var(--light);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--gold);
+            border-radius: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            left: -10px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            right: -10px;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .location-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        #map {
+            height: 400px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .confirmation-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .access-form {
+            text-align: center;
+        }
+        
+        .form-input {
+            margin-bottom: 1rem;
+        }
+        
+        .form-input input,
+        .form-input select {
+            width: 100%;
+            max-width: 300px;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .btn {
+            background-color: var(--gold);
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #c9a227;
+        }
+        
+        .error-message {
+            color: #d9534f;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .guest-form {
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .timeline::before {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+            
+            .timeline-content {
+                width: 100%;
+            }
+            
+            .timeline-content::before {
+                left: -40px;
+                right: auto;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- [Todo o HTML anterior permanece igual até a seção de confirmação] -->
-    <!-- ... -->
-
-    <!-- Seção Confirmação -->
+    <header>
+        <div class="header-content">
+            <h1>Juciane & Elias</h1>
+            <div class="date">15 • 11 • 2025</div>
+            <div class="couple-names">Juciane Souza & Elias Mendes</div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#story">Nossa História</a></li>
+                <li><a href="#location">Localização</a></li>
+                <li><a href="#confirmation">Confirmação</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section id="home">
+        <h2>Nossa União</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">
+            "O amor não se vê com os olhos, mas com o coração."<br>
+            - William Shakespeare
+        </p>
+        <div class="couple-photo">
+            <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Juciane e Elias">
+        </div>
+    </section>
+    
+    <section id="story">
+        <h2>Nossa História</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2018</div>
+                    <h3>Nosso Primeiro Encontro</h3>
+                    <p>Nos conhecemos em uma cafeteria no centro da cidade. Um acidente com café derramado se transformou em horas de conversa e risadas.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2020</div>
+                    <h3>Primeira Viagem Juntos</h3>
+                    <p>Passamos uma semana na praia, onde descobrimos nosso amor por aventuras e por estar juntos em qualquer lugar.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2023</div>
+                    <h3>O Pedido</h3>
+                    <p>Elias preparou um jantar à luz de velas no mesmo local de nosso primeiro encontro e me pediu em casamento com um lindo anel que ele mesmo desenhou.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="location">
+        <h2>Local da Cerimônia</h2>
+        <div class="location-info">
+            <p>Fazenda Vale das Flores</p>
+            <p>Estrada dos Pinheiros, Km 12</p>
+            <p>São Paulo - SP</p>
+            <p>15 de Novembro de 2025</p>
+            <p>Cerimônia: 16h | Recepção: 18h</p>
+        </div>
+        <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.197353585593!2d-46.6586829240391!3d-23.561399578801933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
+        <div style="text-align: center;">
+            <button class="btn" onclick="window.open('https://maps.google.com?q=Fazenda+Vale+das+Flores+Estrada+dos+Pinheiros+Km+12')">Ver no Google Maps</button>
+        </div>
+    </section>
+    
     <section id="confirmation">
         <h2>Confirmação de Presença</h2>
         <div class="confirmation-container">
@@ -24,7 +399,7 @@
                 <p>Para confirmar sua presença, selecione seu nome na lista:</p>
                 
                 <div class="form-input">
-                    <select id="guest-name" size="10" style="width:100%; height:300px;">
+                    <select id="guest-name" size="10" style="width:100%; height:300px; padding:10px;">
                         <option value="" disabled selected>Selecione seu nome</option>
                         <option value="ABD123">Abigail Domingues</option>
                         <option value="BRS456">Bruno Rocha Silva</option>
@@ -52,110 +427,6 @@
                         <option value="XAS012">Xavier Alves Santos</option>
                         <option value="YMC345">Yasmin Mendes Costa</option>
                         <option value="ZAP678">Zacarias Almeida Pereira</option>
-                        <option value="ADA901">Adriana Duarte Alves</option>
-                        <option value="BRC234">Bernardo Rocha Carvalho</option>
-                        <option value="CLS567">Clara Lima Silva</option>
-                        <option value="DAM890">Diego Almeida Melo</option>
-                        <option value="EAS123">Elaine Araújo Santos</option>
-                        <option value="FLC456">Fábio Lima Costa</option>
-                        <option value="GAS789">Gabriela Alves Souza</option>
-                        <option value="HAP012">Henrique Andrade Pereira</option>
-                        <option value="IRM345">Isabela Ribeiro Mendes</option>
-                        <option value="JOS678">João Oliveira Silva</option>
-                        <option value="KAC901">Kátia Almeida Costa</option>
-                        <option value="LRS234">Larissa Ribeiro Souza</option>
-                        <option value="MAS567">Marcelo Alves Silva</option>
-                        <option value="NAP890">Natália Andrade Pereira</option>
-                        <option value="ORC123">Olivia Rocha Carvalho</option>
-                        <option value="PAS456">Patrícia Almeida Santos</option>
-                        <option value="QAM789">Quiteria Araújo Melo</option>
-                        <option value="RAS012">Ricardo Alves Silva</option>
-                        <option value="SAP345">Sandra Andrade Pereira</option>
-                        <option value="TAC678">Tiago Almeida Costa</option>
-                        <option value="URS901">Ulisses Ribeiro Souza</option>
-                        <option value="VAS234">Viviane Alves Silva</option>
-                        <option value="WAP567">Wagner Andrade Pereira</option>
-                        <option value="XAM890">Ximena Araújo Melo</option>
-                        <option value="YAS123">Yago Alves Santos</option>
-                        <option value="ZAC456">Zélia Almeida Costa</option>
-                        <option value="ALM789">Alice Lima Mendes</option>
-                        <option value="BOS012">Beatriz Oliveira Silva</option>
-                        <option value="CAC345">Cauê Almeida Costa</option>
-                        <option value="DAS678">Débora Araújo Souza</option>
-                        <option value="EAM901">Estela Alves Melo</option>
-                        <option value="FAP234">Felipe Andrade Pereira</option>
-                        <option value="GAS567">Giovanna Alves Silva</option>
-                        <option value="HAC890">Heitor Almeida Costa</option>
-                        <option value="IRS123">Iris Ribeiro Santos</option>
-                        <option value="JAM456">José Araújo Melo</option>
-                        <option value="KAS789">Kátia Alves Silva</option>
-                        <option value="LAP012">Lucas Andrade Pereira</option>
-                        <option value="MAC345">Marina Almeida Costa</option>
-                        <option value="NAS678">Nádia Araújo Souza</option>
-                        <option value="OAS901">Otávio Alves Santos</option>
-                        <option value="PAM234">Paula Araújo Melo</option>
-                        <option value="QRS567">Quirino Ribeiro Silva</option>
-                        <option value="RAC890">Renata Almeida Costa</option>
-                        <option value="SAP123">Sérgio Andrade Pereira</option>
-                        <option value="TAS456">Tatiana Alves Silva</option>
-                        <option value="UAM789">Ubirajara Araújo Melo</option>
-                        <option value="VAS012">Vanessa Alves Santos</option>
-                        <option value="WAC345">Wesley Almeida Costa</option>
-                        <option value="XAS678">Xuxa Araújo Souza</option>
-                        <option value="YAM901">Yasmin Araújo Melo</option>
-                        <option value="ZAS234">Zacarias Alves Silva</option>
-                        <option value="AAC567">Amanda Almeida Costa</option>
-                        <option value="BAS890">Breno Araújo Souza</option>
-                        <option value="CAS123">Camila Alves Santos</option>
-                        <option value="DAM456">Daniel Araújo Melo</option>
-                        <option value="EAS789">Elisa Alves Silva</option>
-                        <option value="FAC012">Fernando Almeida Costa</option>
-                        <option value="GAS345">Gabriela Araújo Souza</option>
-                        <option value="HAS678">Henrique Alves Santos</option>
-                        <option value="IAM901">Isadora Araújo Melo</option>
-                        <option value="JAS234">João Alves Silva</option>
-                        <option value="KAC567">Karina Almeida Costa</option>
-                        <option value="LAS890">Larissa Araújo Souza</option>
-                        <option value="MAS123">Marcos Alves Santos</option>
-                        <option value="NAM456">Natália Araújo Melo</option>
-                        <option value="OAS789">Otávio Alves Silva</option>
-                        <option value="PAC012">Patrícia Almeida Costa</option>
-                        <option value="QAS345">Quezia Araújo Souza</option>
-                        <option value="RAS678">Ricardo Alves Santos</option>
-                        <option value="SAM901">Sofia Araújo Melo</option>
-                        <option value="TAS234">Thiago Alves Silva</option>
-                        <option value="UAC567">Úrsula Almeida Costa</option>
-                        <option value="VAS890">Vitor Araújo Souza</option>
-                        <option value="WAS123">Wanessa Alves Santos</option>
-                        <option value="XAM456">Xisto Araújo Melo</option>
-                        <option value="YAS789">Yasmin Alves Silva</option>
-                        <option value="ZAC012">Zacarias Almeida Costa</option>
-                        <option value="AAS345">Ana Alves Souza</option>
-                        <option value="BAS678">Bruno Araújo Santos</option>
-                        <option value="CAM901">Carlos Araújo Melo</option>
-                        <option value="DAS234">Daniela Alves Silva</option>
-                        <option value="EAC567">Eduardo Almeida Costa</option>
-                        <option value="FAS890">Fernanda Araújo Souza</option>
-                        <option value="GAS123">Gabriel Alves Santos</option>
-                        <option value="HAM456">Helena Araújo Melo</option>
-                        <option value="IAS789">Igor Alves Silva</option>
-                        <option value="JAC012">Juliana Almeida Costa</option>
-                        <option value="KAS345">Kevin Araújo Souza</option>
-                        <option value="LAS678">Lorena Alves Santos</option>
-                        <option value="MAM901">Marcelo Araújo Melo</option>
-                        <option value="NAS234">Nathália Alves Silva</option>
-                        <option value="OAC567">Olívia Almeida Costa</option>
-                        <option value="PAS890">Paulo Araújo Souza</option>
-                        <option value="QAS123">Quezia Alves Santos</option>
-                        <option value="RAM456">Rafael Araújo Melo</option>
-                        <option value="SAS789">Sabrina Alves Silva</option>
-                        <option value="TAC012">Thiago Almeida Costa</option>
-                        <option value="UAS345">Úrsula Araújo Souza</option>
-                        <option value="VAS678">Vanessa Alves Santos</option>
-                        <option value="WAM901">Wagner Araújo Melo</option>
-                        <option value="XAS234">Ximena Alves Silva</option>
-                        <option value="YAC567">Yago Almeida Costa</option>
-                        <option value="ZAS890">Zélia Araújo Souza</option>
                     </select>
                 </div>
                 
@@ -190,14 +461,13 @@
         </div>
     </section>
     
-    <!-- Rodapé -->
     <footer>
         <p>Juciane & Elias - 15/11/2025</p>
         <p>Sua presença é o nosso presente mais especial</p>
     </footer>
     
     <script>
-        // Lista completa de convidados fictícios
+        // Lista de convidados (código: nome)
         const guestList = {
             "ABD123": "Abigail Domingues",
             "BRS456": "Bruno Rocha Silva",
@@ -224,111 +494,7 @@
             "WRS789": "William Ribeiro Souza",
             "XAS012": "Xavier Alves Santos",
             "YMC345": "Yasmin Mendes Costa",
-            "ZAP678": "Zacarias Almeida Pereira",
-            "ADA901": "Adriana Duarte Alves",
-            "BRC234": "Bernardo Rocha Carvalho",
-            "CLS567": "Clara Lima Silva",
-            "DAM890": "Diego Almeida Melo",
-            "EAS123": "Elaine Araújo Santos",
-            "FLC456": "Fábio Lima Costa",
-            "GAS789": "Gabriela Alves Souza",
-            "HAP012": "Henrique Andrade Pereira",
-            "IRM345": "Isabela Ribeiro Mendes",
-            "JOS678": "João Oliveira Silva",
-            "KAC901": "Kátia Almeida Costa",
-            "LRS234": "Larissa Ribeiro Souza",
-            "MAS567": "Marcelo Alves Silva",
-            "NAP890": "Natália Andrade Pereira",
-            "ORC123": "Olivia Rocha Carvalho",
-            "PAS456": "Patrícia Almeida Santos",
-            "QAM789": "Quiteria Araújo Melo",
-            "RAS012": "Ricardo Alves Silva",
-            "SAP345": "Sandra Andrade Pereira",
-            "TAC678": "Tiago Almeida Costa",
-            "URS901": "Ulisses Ribeiro Souza",
-            "VAS234": "Viviane Alves Silva",
-            "WAP567": "Wagner Andrade Pereira",
-            "XAM890": "Ximena Araújo Melo",
-            "YAS123": "Yago Alves Santos",
-            "ZAC456": "Zélia Almeida Costa",
-            "ALM789": "Alice Lima Mendes",
-            "BOS012": "Beatriz Oliveira Silva",
-            "CAC345": "Cauê Almeida Costa",
-            "DAS678": "Débora Araújo Souza",
-            "EAM901": "Estela Alves Melo",
-            "FAP234": "Felipe Andrade Pereira",
-            "GAS567": "Giovanna Alves Silva",
-            "HAC890": "Heitor Almeida Costa",
-            "IRS123": "Iris Ribeiro Santos",
-            "JAM456": "José Araújo Melo",
-            "KAS789": "Kátia Alves Silva",
-            "LAP012": "Lucas Andrade Pereira",
-            "MAC345": "Marina Almeida Costa",
-            "NAS678": "Nádia Araújo Souza",
-            "OAS901": "Otávio Alves Santos",
-            "PAM234": "Paula Araújo Melo",
-            "QRS567": "Quirino Ribeiro Silva",
-            "RAC890": "Renata Almeida Costa",
-            "SAP123": "Sérgio Andrade Pereira",
-            "TAS456": "Tatiana Alves Silva",
-            "UAM789": "Ubirajara Araújo Melo",
-            "VAS012": "Vanessa Alves Santos",
-            "WAC345": "Wesley Almeida Costa",
-            "XAS678": "Xuxa Araújo Souza",
-            "YAM901": "Yasmin Araújo Melo",
-            "ZAS234": "Zacarias Alves Silva",
-            "AAC567": "Amanda Almeida Costa",
-            "BAS890": "Breno Araújo Souza",
-            "CAS123": "Camila Alves Santos",
-            "DAM456": "Daniel Araújo Melo",
-            "EAS789": "Elisa Alves Silva",
-            "FAC012": "Fernando Almeida Costa",
-            "GAS345": "Gabriela Araújo Souza",
-            "HAS678": "Henrique Alves Santos",
-            "IAM901": "Isadora Araújo Melo",
-            "JAS234": "João Alves Silva",
-            "KAC567": "Karina Almeida Costa",
-            "LAS890": "Larissa Araújo Souza",
-            "MAS123": "Marcos Alves Santos",
-            "NAM456": "Natália Araújo Melo",
-            "OAS789": "Otávio Alves Silva",
-            "PAC012": "Patrícia Almeida Costa",
-            "QAS345": "Quezia Araújo Souza",
-            "RAS678": "Ricardo Alves Santos",
-            "SAM901": "Sofia Araújo Melo",
-            "TAS234": "Thiago Alves Silva",
-            "UAC567": "Úrsula Almeida Costa",
-            "VAS890": "Vitor Araújo Souza",
-            "WAS123": "Wanessa Alves Santos",
-            "XAM456": "Xisto Araújo Melo",
-            "YAS789": "Yasmin Alves Silva",
-            "ZAC012": "Zacarias Almeida Costa",
-            "AAS345": "Ana Alves Souza",
-            "BAS678": "Bruno Araújo Santos",
-            "CAM901": "Carlos Araújo Melo",
-            "DAS234": "Daniela Alves Silva",
-            "EAC567": "Eduardo Almeida Costa",
-            "FAS890": "Fernanda Araújo Souza",
-            "GAS123": "Gabriel Alves Santos",
-            "HAM456": "Helena Araújo Melo",
-            "IAS789": "Igor Alves Silva",
-            "JAC012": "Juliana Almeida Costa",
-            "KAS345": "Kevin Araújo Souza",
-            "LAS678": "Lorena Alves Santos",
-            "MAM901": "Marcelo Araújo Melo",
-            "NAS234": "Nathália Alves Silva",
-            "OAC567": "Olívia Almeida Costa",
-            "PAS890": "Paulo Araújo Souza",
-            "QAS123": "Quezia Alves Santos",
-            "RAM456": "Rafael Araújo Melo",
-            "SAS789": "Sabrina Alves Silva",
-            "TAC012": "Thiago Almeida Costa",
-            "UAS345": "Úrsula Araújo Souza",
-            "VAS678": "Vanessa Alves Santos",
-            "WAM901": "Wagner Araújo Melo",
-            "XAS234": "Ximena Alves Silva",
-            "YAC567": "Yago Almeida Costa",
-            "ZAS890": "Zélia Araújo Souza"
+            "ZAP678": "Zacarias Almeida Pereira"
         };
 
         // Elementos DOM
