@@ -13,6 +13,8 @@
             --light: #ffffff;
             --light-gold: #e8d9a0;
             --dark-gold: #b38f00;
+            --success: #28a745;
+            --error: #d9534f;
         }
         
         * {
@@ -295,7 +297,7 @@
             border-radius: 4px;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
         }
         
         .form-input input:focus,
@@ -315,12 +317,18 @@
             background-color: var(--ivory);
             font-size: 1rem;
             color: var(--dark);
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d4af37'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 20px;
         }
         
         #guest-name option {
             padding: 8px 12px;
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
         
         #guest-name option:hover {
@@ -362,10 +370,11 @@
         }
         
         .error-message {
-            color: #d9534f;
+            color: var(--error);
             margin-top: 1rem;
             display: none;
             font-weight: 500;
+            text-align: center;
         }
         
         .guest-form {
@@ -396,9 +405,60 @@
         .success-message {
             display: none;
             text-align: center;
-            color: #28a745;
+            color: var(--success);
             font-weight: 500;
             margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 4px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .confirmation-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .confirmation-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .confirmation-option input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .confirmation-option input[type="radio"]:checked {
+            background-color: var(--gold);
+        }
+        
+        .confirmation-option input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .confirmation-option label {
+            cursor: pointer;
+            user-select: none;
         }
         
         footer {
@@ -463,6 +523,11 @@
             
             .confirmation-container {
                 padding: 2rem 1rem;
+            }
+            
+            .confirmation-options {
+                flex-direction: column;
+                gap: 0.5rem;
             }
         }
     </style>
@@ -583,27 +648,31 @@
             </div>
             
             <div class="guest-form" id="guest-form">
-                <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold);">Confirme seus dados</h3>
+                <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold);">Confirme sua presença</h3>
                 <div class="form-group">
                     <label for="confirm-name">Nome Completo</label>
-                    <input type="text" id="confirm-name" readonly style="background-color: #f5f5f5;">
+                    <input type="text" id="confirm-name" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
                 </div>
+                
                 <div class="form-group">
-                    <label for="confirmation-status">Você comparecerá?</label>
-                    <select id="confirmation-status" required>
-                        <option value="" disabled selected>Selecione uma opção</option>
-                        <option value="yes">Sim, com grande alegria!</option>
-                        <option value="no">Infelizmente não poderei</option>
-                    </select>
+                    <p style="margin-bottom: 1rem; text-align: center; font-weight: 500;">Você comparecerá ao nosso casamento?</p>
+                    <div class="confirmation-options">
+                        <div class="confirmation-option">
+                            <input type="radio" id="confirm-yes" name="confirmation" value="yes" required>
+                            <label for="confirm-yes">Sim, com grande alegria!</label>
+                        </div>
+                        <div class="confirmation-option">
+                            <input type="radio" id="confirm-no" name="confirmation" value="no">
+                            <label for="confirm-no">Infelizmente não poderei</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="guest-count">Número de pessoas (incluindo você)</label>
-                    <input type="number" id="guest-count" min="1" value="1" required>
-                </div>
+                
                 <div class="form-group">
                     <label for="message">Mensagem para os noivos (opcional)</label>
                     <textarea id="message" placeholder="Deixe uma mensagem especial..."></textarea>
                 </div>
+                
                 <button class="btn" id="submit-btn">Confirmar Presença</button>
                 <p id="success-message" class="success-message"></p>
             </div>
@@ -685,8 +754,7 @@
         
         function submitConfirmation() {
             const name = confirmNameInput.value;
-            const status = document.getElementById('confirmation-status').value;
-            const count = document.getElementById('guest-count').value;
+            const status = document.querySelector('input[name="confirmation"]:checked')?.value;
             const message = document.getElementById('message').value;
             
             // Validar confirmação
@@ -699,7 +767,6 @@
             const formData = {
                 nome: name,
                 comparecera: status === 'yes' ? 'Sim' : 'Não',
-                numeroPessoas: count,
                 mensagem: message,
                 dataEnvio: new Date().toLocaleString(),
                 dataEvento: '15/11/2025'
@@ -733,7 +800,6 @@ Assunto: Confirmação de Presença - ${formData.nome}
 Corpo:
 Nome: ${formData.nome}
 Comparecerá: ${formData.comparecera}
-Número de pessoas: ${formData.numeroPessoas}
 Mensagem: ${formData.mensagem || 'Nenhuma mensagem'}
 Data do Evento: ${formData.dataEvento}
 Data de Envio: ${formData.dataEnvio}`);
@@ -747,8 +813,9 @@ Data de Envio: ${formData.dataEnvio}`);
         
         function resetConfirmationForm() {
             // Resetar todos os campos
-            document.getElementById('confirmation-status').value = '';
-            document.getElementById('guest-count').value = '1';
+            document.querySelectorAll('input[name="confirmation"]').forEach(radio => {
+                radio.checked = false;
+            });
             document.getElementById('message').value = '';
             guestNameSelect.value = '';
             successMessage.style.display = 'none';
