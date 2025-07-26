@@ -754,30 +754,34 @@
         }
         
         function submitConfirmation() {
-            const name = confirmNameInput.value;
-            const status = document.querySelector('input[name="Confirmação"]:checked')?.value;
-            const message = document.getElementById('message').value;
-            
-            // Validar confirmação
-            if (!status) {
-                showError("Por favor, selecione se você comparecerá");
-                return;
-            }
-            
-            // Criar objeto com os dados do formulário
-            const formData = {
-                nome: name,
-                comparecera: status,
-                mensagem: message,
-                dataEvento: '15/11/2025'
-            };
-            
-            // Enviar dados por email usando FormSubmit
-            sendEmail(formData);
-            
-            // Redirecionar para a página de agradecimento
-            window.location.href = 'obrigado.html';
-        }
+    const name = confirmNameInput.value;
+    const status = document.querySelector('input[name="Confirmação"]:checked')?.value;
+    const message = document.getElementById('message').value;
+    
+    // Validar confirmação
+    if (!status) {
+        showError("Por favor, selecione se você comparecerá");
+        return;
+    }
+    
+    // Criar objeto com os dados do formulário
+    const formData = {
+        nome: name,
+        comparecera: status,
+        mensagem: message,
+        dataEvento: '15/11/2025'
+    };
+    
+    // Enviar dados por email usando FormSubmit
+    sendEmail(formData);
+    
+    // Redirecionar para página adequada
+    if (status.includes("Sim")) {
+        window.location.href = 'obrigado.html';
+    } else {
+        window.location.href = 'nao-pode-comparecer.html';
+    }
+}
         
         function sendEmail(formData) {
             // Usando FormSubmit.co para enviar o email

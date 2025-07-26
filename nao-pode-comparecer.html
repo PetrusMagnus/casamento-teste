@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obrigado por confirmar! | Juciane & Elias</title>
+    <title>Sinto muito por não poder comparecer | Juciane & Elias</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +11,7 @@
             --ivory: #f9f6f0;
             --dark: #333333;
             --light: #ffffff;
-            --success: #28a745;
+            --soft-red: #e74c3c;
         }
         
         * {
@@ -36,7 +36,7 @@
             font-weight: 700;
         }
         
-        .thank-you-header {
+        .sorry-header {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                         url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
             height: 60vh;
@@ -68,39 +68,46 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
-        .thank-you-content {
+        .sorry-content {
             max-width: 800px;
             margin: 3rem auto;
             padding: 0 2rem;
             flex: 1;
         }
         
-        .thank-you-content h2 {
+        .sorry-content h2 {
             font-size: 2.2rem;
-            color: var(--gold);
+            color: var(--soft-red);
             margin-bottom: 1.5rem;
             position: relative;
         }
         
-        .thank-you-content h2::after {
+        .sorry-content h2::after {
             content: '';
             display: block;
             width: 80px;
             height: 3px;
-            background-color: var(--gold);
+            background-color: var(--soft-red);
             margin: 1rem auto 0;
         }
         
-        .thank-you-content p {
+        .sorry-content p {
             font-size: 1.1rem;
             margin-bottom: 2rem;
             line-height: 1.8;
         }
         
-        .confirmation-icon {
+        .heart-icon {
             font-size: 4rem;
-            color: var(--success);
+            color: var(--soft-red);
             margin: 2rem 0;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
         .btn {
@@ -154,30 +161,30 @@
                 font-size: 1.5rem;
             }
             
-            .thank-you-content h2 {
+            .sorry-content h2 {
                 font-size: 1.8rem;
             }
             
-            .confirmation-icon {
+            .heart-icon {
                 font-size: 3rem;
             }
         }
     </style>
 </head>
 <body>
-    <header class="thank-you-header">
+    <header class="sorry-header">
         <div class="header-content">
-            <h1>Obrigado!</h1>
+            <h1>Sinto muito</h1>
             <div class="couple-names">Juciane Meireles & Elias Francisco</div>
         </div>
     </header>
     
-    <main class="thank-you-content">
-        <div class="confirmation-icon">✓</div>
-        <h2>Sua presença foi confirmada!</h2>
-        <p>Que alegria saber que você estará conosco neste dia tão especial! Sua presença é muito importante para nós.</p>
-        <p>Mal podemos esperar para compartilhar esse momento único ao seu lado.</p>
-        <p>Se precisar alterar alguma informação ou tiver alguma dúvida, entre em contato conosco pelo email <strong>casamentoeliasejuciane@gmail.com</strong></p>
+    <main class="sorry-content">
+        <div class="heart-icon">❤</div>
+        <h2>Você estará em nossos corações</h2>
+        <p>Embora sua presença física não seja possível, saiba que você estará conosco em espírito neste dia tão especial.</p>
+        <p>Agradecemos por fazer parte da nossa história e por compartilhar seu carinho conosco.</p>
+        <p>Se quiser nos enviar uma mensagem especial, ficaremos felizes em receber no email <strong>casamentoeliasejuciane@gmail.com</strong></p>
         
         <a href="index.html" class="btn">Voltar ao site do casamento</a>
     </main>
@@ -185,7 +192,7 @@
     <footer>
         <p>Juciane & Elias</p>
         <p>15 • 11 • 2025</p>
-        <p>Contamos com sua presença!</p>
+        <p>Com amor,</p>
     </footer>
 </body>
 </html>
