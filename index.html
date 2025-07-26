@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -648,10 +649,19 @@
             </div>
             
             <!-- Formulário de confirmação com action para FormSubmit -->
+            <section id="confirmation">
+        <h2>Confirmação de Presença</h2>
+        <div class="confirmation-container">
+            <div class="access-form" id="access-form">
+                <!-- [Conteúdo anterior do access-form permanece igual] -->
+                <!-- ... -->
+            </div>
+            
+            <!-- Formulário de confirmação atualizado com redirecionamento local -->
             <form class="guest-form" id="guest-form" action="https://formsubmit.co/casamentoeliasejuciane@gmail.com" method="POST">
                 <input type="hidden" name="_subject" value="Nova confirmação de presença">
                 <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value=obrigado.html> <!-- Substitua pela sua URL de sucesso -->
+                <input type="hidden" name="_next" value="obrigado.html"> <!-- Redirecionamento local -->
                 <input type="hidden" name="_captcha" value="false">
                 
                 <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold);">Confirme sua presença</h3>
