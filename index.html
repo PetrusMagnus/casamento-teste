@@ -647,22 +647,28 @@
                 <p id="error-message" class="error-message"></p>
             </div>
             
-            <div class="guest-form" id="guest-form">
+            <!-- Formulário de confirmação com action para FormSubmit -->
+            <form class="guest-form" id="guest-form" action="https://formsubmit.co/casamentoeliasejuciane@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Nova confirmação de presença">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://seusite.com/obrigado.html"> <!-- Substitua pela sua URL de sucesso -->
+                <input type="hidden" name="_captcha" value="false">
+                
                 <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold);">Confirme sua presença</h3>
                 <div class="form-group">
                     <label for="confirm-name">Nome Completo</label>
-                    <input type="text" id="confirm-name" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
+                    <input type="text" id="confirm-name" name="Nome" readonly style="background-color: #f5f5f5; cursor: not-allowed;">
                 </div>
                 
                 <div class="form-group">
                     <p style="margin-bottom: 1rem; text-align: center; font-weight: 500;">Você comparecerá ao nosso casamento?</p>
                     <div class="confirmation-options">
                         <div class="confirmation-option">
-                            <input type="radio" id="confirm-yes" name="confirmation" value="yes" required>
+                            <input type="radio" id="confirm-yes" name="Confirmação" value="Sim, com grande alegria!" required>
                             <label for="confirm-yes">Sim, com grande alegria!</label>
                         </div>
                         <div class="confirmation-option">
-                            <input type="radio" id="confirm-no" name="confirmation" value="no">
+                            <input type="radio" id="confirm-no" name="Confirmação" value="Infelizmente não poderei">
                             <label for="confirm-no">Infelizmente não poderei</label>
                         </div>
                     </div>
@@ -670,12 +676,12 @@
                 
                 <div class="form-group">
                     <label for="message">Mensagem para os noivos (opcional)</label>
-                    <textarea id="message" placeholder="Deixe uma mensagem especial..."></textarea>
+                    <textarea id="message" name="Mensagem" placeholder="Deixe uma mensagem especial..."></textarea>
                 </div>
                 
-                <button class="btn" id="submit-btn">Confirmar Presença</button>
+                <button type="submit" class="btn" id="submit-btn">Confirmar Presença</button>
                 <p id="success-message" class="success-message"></p>
-            </div>
+            </form>
         </div>
     </section>
     
@@ -729,9 +735,6 @@
         // Verificar acesso do convidado
         verifyBtn.addEventListener('click', verifyAccess);
         
-        // Submeter confirmação
-        submitBtn.addEventListener('click', submitConfirmation);
-        
         function verifyAccess() {
             const nameSelect = guestNameSelect.value;
             
@@ -752,77 +755,10 @@
             }
         }
         
-        function submitConfirmation() {
-            const name = confirmNameInput.value;
-            const status = document.querySelector('input[name="confirmation"]:checked')?.value;
-            const message = document.getElementById('message').value;
-            
-            // Validar confirmação
-            if (!status) {
-                showError("Por favor, selecione se você comparecerá");
-                return;
-            }
-            
-            // Criar objeto com os dados do formulário
-            const formData = {
-                nome: name,
-                comparecera: status === 'yes' ? 'Sim' : 'Não',
-                mensagem: message,
-                dataEnvio: new Date().toLocaleString(),
-                dataEvento: '15/11/2025'
-            };
-            
-            // Enviar dados por email (simulação)
-            sendEmail(formData);
-            
-            // Mostrar mensagem de sucesso
-            successMessage.textContent = `Obrigado, ${name}! Sua confirmação foi registrada com sucesso.`;
-            successMessage.style.display = 'block';
-            
-            // Resetar formulário após 3 segundos
-            setTimeout(resetConfirmationForm, 3000);
-        }
-        
-        function sendEmail(formData) {
-            // Em um ambiente real, você usaria um serviço de backend para enviar emails
-            // Esta é uma simulação que apenas registra no console
-            console.log('Dados do formulário para envio por email:', formData);
-            
-            // Aqui você pode implementar o envio real usando:
-            // - FormSubmit.co
-            // - EmailJS
-            // - Um servidor Node.js com Nodemailer
-            // - Ou outra solução de backend
-            
-            // Exemplo de como seria enviado para seu email (limaguedespedro@gmail.com)
-            console.log(`Email enviado para: limaguedespedro@gmail.com
-Assunto: Confirmação de Presença - ${formData.nome}
-Corpo:
-Nome: ${formData.nome}
-Comparecerá: ${formData.comparecera}
-Mensagem: ${formData.mensagem || 'Nenhuma mensagem'}
-Data do Evento: ${formData.dataEvento}
-Data de Envio: ${formData.dataEnvio}`);
-        }
-        
         function showError(message) {
             errorMessage.textContent = message;
             errorMessage.style.display = 'block';
             successMessage.style.display = 'none';
-        }
-        
-        function resetConfirmationForm() {
-            // Resetar todos os campos
-            document.querySelectorAll('input[name="confirmation"]').forEach(radio => {
-                radio.checked = false;
-            });
-            document.getElementById('message').value = '';
-            guestNameSelect.value = '';
-            successMessage.style.display = 'none';
-            
-            // Voltar para o formulário de acesso
-            guestForm.style.display = 'none';
-            accessForm.style.display = 'block';
         }
         
         // Suavizar rolagem para âncoras
