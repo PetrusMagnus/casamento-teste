@@ -11,6 +11,8 @@
             --ivory: #f9f6f0;
             --dark: #333333;
             --light: #ffffff;
+            --light-gold: #e8d9a0;
+            --dark-gold: #b38f00;
         }
         
         * {
@@ -53,17 +55,22 @@
             font-size: 4rem;
             margin-bottom: 1rem;
             color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         .date {
             font-size: 1.5rem;
             letter-spacing: 3px;
             margin-bottom: 2rem;
+            color: var(--light);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
         .couple-names {
             font-size: 2rem;
             font-weight: 300;
+            color: var(--light);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
         nav {
@@ -95,10 +102,13 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
         }
         
         .nav-links a:hover {
             color: var(--gold);
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         section {
@@ -112,6 +122,16 @@
             text-align: center;
             margin-bottom: 3rem;
             color: var(--gold);
+            position: relative;
+        }
+        
+        section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--gold);
+            margin: 1rem auto 0;
         }
         
         .couple-photo {
@@ -120,12 +140,31 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 10px solid var(--light);
+            position: relative;
+        }
+        
+        .couple-photo::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            z-index: -1;
         }
         
         .couple-photo img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.5s;
+        }
+        
+        .couple-photo:hover img {
+            transform: scale(1.03);
         }
         
         .timeline {
@@ -169,6 +208,12 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .timeline-content::before {
@@ -179,6 +224,7 @@
             height: 20px;
             background-color: var(--gold);
             border-radius: 50%;
+            border: 3px solid var(--ivory);
         }
         
         .timeline-item:nth-child(odd) .timeline-content::before {
@@ -193,11 +239,17 @@
             font-weight: bold;
             color: var(--gold);
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
         
         .location-info {
             text-align: center;
             margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .location-info p {
+            margin-bottom: 0.5rem;
         }
         
         #map {
@@ -206,33 +258,80 @@
             border: none;
             border-radius: 8px;
             margin: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 5px solid var(--light);
         }
         
         .confirmation-container {
             max-width: 600px;
             margin: 0 auto;
             background-color: var(--light);
-            padding: 2rem;
+            padding: 3rem;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--light-gold);
         }
         
         .access-form {
             text-align: center;
         }
         
+        .access-form p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
         .form-input {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-input input,
-        .form-input select {
+        .form-input select,
+        .form-input textarea {
             width: 100%;
-            max-width: 300px;
-            padding: 0.8rem;
+            padding: 0.8rem 1rem;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-input input:focus,
+        .form-input select:focus,
+        .form-input textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+        
+        #guest-name {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            background-color: var(--ivory);
+            font-size: 1rem;
+            color: var(--dark);
+        }
+        
+        #guest-name option {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: background-color 0.3s;
+        }
+        
+        #guest-name option:hover {
+            background-color: var(--gold);
+            color: var(--light);
+        }
+        
+        #guest-name option:checked {
+            background-color: var(--gold);
+            color: var(--light);
+            font-weight: bold;
         }
         
         .btn {
@@ -243,19 +342,30 @@
             font-size: 1rem;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             font-weight: 500;
             margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .btn:hover {
-            background-color: #c9a227;
+            background-color: var(--dark-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
         }
         
         .error-message {
             color: #d9534f;
             margin-top: 1rem;
             display: none;
+            font-weight: 500;
         }
         
         .guest-form {
@@ -270,18 +380,52 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
+            color: var(--dark);
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            resize: vertical;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #28a745;
+            font-weight: 500;
+            margin-top: 1rem;
         }
         
         footer {
             background-color: var(--dark);
             color: var(--light);
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+        
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+        
+        footer p:first-child {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
         }
         
         @media (max-width: 768px) {
             .header-content h1 {
                 font-size: 2.5rem;
+            }
+            
+            .couple-names {
+                font-size: 1.5rem;
             }
             
             .nav-links {
@@ -316,6 +460,10 @@
                 left: -40px;
                 right: auto;
             }
+            
+            .confirmation-container {
+                padding: 2rem 1rem;
+            }
         }
     </style>
 </head>
@@ -324,7 +472,7 @@
         <div class="header-content">
             <h1>Juciane & Elias</h1>
             <div class="date">15 • 11 • 2025</div>
-            <div class="couple-names">Juciane Souza & Elias Mendes</div>
+            <div class="couple-names">Juciane Meireles & Elias Francisco</div>
         </div>
     </header>
     
@@ -399,7 +547,7 @@
                 <p>Para confirmar sua presença, selecione seu nome na lista:</p>
                 
                 <div class="form-input">
-                    <select id="guest-name" size="10" style="width:100%; height:300px; padding:10px;">
+                    <select id="guest-name" size="10">
                         <option value="" disabled selected>Selecione seu nome</option>
                         <option value="ABD123">Abigail Domingues</option>
                         <option value="BRS456">Bruno Rocha Silva</option>
@@ -435,10 +583,10 @@
             </div>
             
             <div class="guest-form" id="guest-form">
-                <h3>Confirme seus dados</h3>
+                <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold);">Confirme seus dados</h3>
                 <div class="form-group">
                     <label for="confirm-name">Nome Completo</label>
-                    <input type="text" id="confirm-name" readonly>
+                    <input type="text" id="confirm-name" readonly style="background-color: #f5f5f5;">
                 </div>
                 <div class="form-group">
                     <label for="confirmation-status">Você comparecerá?</label>
@@ -457,12 +605,14 @@
                     <textarea id="message" placeholder="Deixe uma mensagem especial..."></textarea>
                 </div>
                 <button class="btn" id="submit-btn">Confirmar Presença</button>
+                <p id="success-message" class="success-message"></p>
             </div>
         </div>
     </section>
     
     <footer>
-        <p>Juciane & Elias - 15/11/2025</p>
+        <p>Juciane & Elias</p>
+        <p>15 • 11 • 2025</p>
         <p>Sua presença é o nosso presente mais especial</p>
     </footer>
     
@@ -501,6 +651,7 @@
         const accessForm = document.getElementById('access-form');
         const guestForm = document.getElementById('guest-form');
         const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
         const guestNameSelect = document.getElementById('guest-name');
         const confirmNameInput = document.getElementById('confirm-name');
         const verifyBtn = document.getElementById('verify-btn');
@@ -544,16 +695,54 @@
                 return;
             }
             
-            // Simular envio (em produção, enviaria para um servidor)
-            alert(`Obrigado, ${name}! Sua confirmação foi registrada com sucesso.`);
+            // Criar objeto com os dados do formulário
+            const formData = {
+                nome: name,
+                comparecera: status === 'yes' ? 'Sim' : 'Não',
+                numeroPessoas: count,
+                mensagem: message,
+                dataEnvio: new Date().toLocaleString(),
+                dataEvento: '15/11/2025'
+            };
             
-            // Resetar formulário
-            resetConfirmationForm();
+            // Enviar dados por email (simulação)
+            sendEmail(formData);
+            
+            // Mostrar mensagem de sucesso
+            successMessage.textContent = `Obrigado, ${name}! Sua confirmação foi registrada com sucesso.`;
+            successMessage.style.display = 'block';
+            
+            // Resetar formulário após 3 segundos
+            setTimeout(resetConfirmationForm, 3000);
+        }
+        
+        function sendEmail(formData) {
+            // Em um ambiente real, você usaria um serviço de backend para enviar emails
+            // Esta é uma simulação que apenas registra no console
+            console.log('Dados do formulário para envio por email:', formData);
+            
+            // Aqui você pode implementar o envio real usando:
+            // - FormSubmit.co
+            // - EmailJS
+            // - Um servidor Node.js com Nodemailer
+            // - Ou outra solução de backend
+            
+            // Exemplo de como seria enviado para seu email (limaguedespedro@gmail.com)
+            console.log(`Email enviado para: limaguedespedro@gmail.com
+Assunto: Confirmação de Presença - ${formData.nome}
+Corpo:
+Nome: ${formData.nome}
+Comparecerá: ${formData.comparecera}
+Número de pessoas: ${formData.numeroPessoas}
+Mensagem: ${formData.mensagem || 'Nenhuma mensagem'}
+Data do Evento: ${formData.dataEvento}
+Data de Envio: ${formData.dataEnvio}`);
         }
         
         function showError(message) {
             errorMessage.textContent = message;
             errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
         }
         
         function resetConfirmationForm() {
@@ -562,6 +751,7 @@
             document.getElementById('guest-count').value = '1';
             document.getElementById('message').value = '';
             guestNameSelect.value = '';
+            successMessage.style.display = 'none';
             
             // Voltar para o formulário de acesso
             guestForm.style.display = 'none';
@@ -577,6 +767,17 @@
                     behavior: 'smooth'
                 });
             });
+        });
+        
+        // Melhorar a experiência de seleção
+        guestNameSelect.addEventListener('focus', function() {
+            this.style.borderColor = 'var(--gold)';
+            this.style.boxShadow = '0 0 0 3px rgba(212, 175, 55, 0.2)';
+        });
+        
+        guestNameSelect.addEventListener('blur', function() {
+            this.style.borderColor = 'var(--gold)';
+            this.style.boxShadow = 'none';
         });
     </script>
 </body>
