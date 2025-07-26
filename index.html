@@ -647,13 +647,8 @@
                 <p id="error-message" class="error-message"></p>
             </div>
             
-            <!-- Formulário de confirmação atualizado com redirecionamento local -->
-            <form class="guest-form" id="guest-form" action="https://formsubmit.co/casamentoeliasejuciane@gmail.com" method="POST">
-                <input type="hidden" name="_subject" value="Nova confirmação de presença">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="obrigado.html"> <!-- Redirecionamento local -->
-                <input type="hidden" name="_captcha" value="false">
-                
+            <!-- Formulário de confirmação atualizado com JavaScript para redirecionamento -->
+            <form class="guest-form" id="guest-form">
                 <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--gold);">Confirme sua presença</h3>
                 <div class="form-group">
                     <label for="confirm-name">Nome Completo</label>
@@ -679,7 +674,7 @@
                     <textarea id="message" name="Mensagem" placeholder="Deixe uma mensagem especial..."></textarea>
                 </div>
                 
-                <button type="submit" class="btn" id="submit-btn">Confirmar Presença</button>
+                <button type="button" class="btn" id="submit-btn">Confirmar Presença</button>
                 <p id="success-message" class="success-message"></p>
             </form>
         </div>
@@ -735,6 +730,9 @@
         // Verificar acesso do convidado
         verifyBtn.addEventListener('click', verifyAccess);
         
+        // Submeter confirmação
+        submitBtn.addEventListener('click', submitConfirmation);
+        
         function verifyAccess() {
             const nameSelect = guestNameSelect.value;
             
@@ -753,6 +751,53 @@
                 // Acesso negado
                 showError("Nome inválido. Por favor, verifique.");
             }
+        }
+        
+        function submitConfirmation() {
+            const name = confirmNameInput.value;
+            const status = document.querySelector('input[name="Confirmação"]:checked')?.value;
+            const message = document.getElementById('message').value;
+            
+            // Validar confirmação
+            if (!status) {
+                showError("Por favor, selecione se você comparecerá");
+                return;
+            }
+            
+            // Criar objeto com os dados do formulário
+            const formData = {
+                nome: name,
+                comparecera: status,
+                mensagem: message,
+                dataEvento: '15/11/2025'
+            };
+            
+            // Enviar dados por email usando FormSubmit
+            sendEmail(formData);
+            
+            // Redirecionar para a página de agradecimento
+            window.location.href = 'obrigado.html';
+        }
+        
+        function sendEmail(formData) {
+            // Usando FormSubmit.co para enviar o email
+            fetch('https://formsubmit.co/ajax/casamentoeliasejuciane@gmail.com', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: formData.nome,
+                    confirmation: formData.comparecera,
+                    message: formData.mensagem,
+                    date: formData.dataEvento,
+                    _subject: 'Nova confirmação de presença'
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Email enviado:', data))
+            .catch(error => console.error('Erro ao enviar:', error));
         }
         
         function showError(message) {
